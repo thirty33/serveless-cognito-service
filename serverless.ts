@@ -1,5 +1,6 @@
 import type { AWS } from '@serverless/typescript';
 import registerUser from '@functions/registerUser';
+import logInUser from '@functions/logInUser';
 
 const serverlessConfiguration: AWS = {
   service: 'cognito-service',
@@ -23,17 +24,22 @@ const serverlessConfiguration: AWS = {
     iamRoleStatements: [
       { 
         Effect: 'Allow',
-        Action: ['cognito-idp:AdminCreateUser'],
+        Action: [
+          'cognito-idp:AdminCreateUser',
+          'cognito-idp:AdminInitiateAuth',
+          'cognito-idp:AdminRespondToAuthChallenge'
+        ],
         Resource: '*' 
       },
     ]
 
   },
   // import the function via paths
-  functions: { registerUser },
+  functions: { registerUser, logInUser },
   package: { individually: true },
   custom: {
     userPoolId: 'us-east-1_5h9npWAGZ',
+    userPoolClientId: '3vn4evukjlt63or20u5ibvfo7m',
     esbuild: {
       bundle: true,
       minify: false,

@@ -5,4 +5,9 @@ export interface UserToCreate {
     temporaryPassword?: string;
     nickname?: string;
     email?: string;
-} 
+}
+
+export interface logInObject {
+    email: string;
+    password: string;
+}
